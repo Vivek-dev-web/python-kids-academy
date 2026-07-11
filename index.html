@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Py Pals - Python for Kids!</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<!-- CodeMirror for friendly, safe code editing/viewing (no scary red squiggles) -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/theme/dracula.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/codemirror.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/mode/python/python.min.js"></script>
+
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<canvas id="confetti-canvas"></canvas>
+
+<!-- ===== TOP BAR ===== -->
+<header class="topbar">
+  <div class="brand">
+    <span class="brand-mascot" id="header-mascot">🐼</span>
+    <span class="brand-title">Py Pals</span>
+  </div>
+
+  <div class="progress-wrap" id="progress-wrap" title="Your progress">
+    <div class="progress-track">
+      <div class="progress-fill" id="progress-fill"></div>
+    </div>
+    <span class="progress-label" id="progress-label">0 / 5 lessons</span>
+  </div>
+
+  <div class="topbar-actions">
+    <button class="icon-btn" id="stars-badge" title="Your stars">⭐ <span id="star-count">0</span></button>
+    <button class="icon-btn" id="parent-btn" title="Parent / Teacher Dashboard">🧑‍🏫</button>
+    <button class="icon-btn" id="mute-btn" title="Mute sounds">🔊</button>
+  </div>
+</header>
+
+<!-- ===== HOME / LESSON MAP ===== -->
+<main id="view-home" class="view">
+  <div class="hero">
+    <div class="hero-mascot">🐼</div>
+    <h1>Hi there, Py Pal!</h1>
+    <p>Pick a lesson below and let's learn Python together — one fun step at a time!</p>
+  </div>
+
+  <div class="lesson-map" id="lesson-map"></div>
+</main>
+
+<!-- ===== LESSON FLOW VIEW ===== -->
+<main id="view-lesson" class="view" style="display:none;">
+
+  <div class="lesson-shell">
+
+    <!-- Step indicator -->
+    <div class="step-dots" id="step-dots">
+      <button class="step-dot" data-step="learn">📖 Learn</button>
+      <button class="step-dot" data-step="example">▶️ Example</button>
+      <button class="step-dot" data-step="practice">✏️ Practice</button>
+    </div>
+
+    <button class="back-btn" id="back-to-map">⬅ All Lessons</button>
+
+    <!-- STEP 1: LEARN -->
+    <section class="step-panel" id="panel-learn">
+      <div class="mascot-bubble">
+        <div class="mascot-face" id="learn-mascot">🐼</div>
+        <div class="speech-bubble" id="learn-text"></div>
+      </div>
+      <div class="concept-visual" id="concept-visual"></div>
+      <button class="big-btn primary" id="learn-next-btn">Show me an example! ▶️</button>
+    </section>
+
+    <!-- STEP 2: EXAMPLE -->
+    <section class="step-panel" id="panel-example" style="display:none;">
+      <h2 class="panel-title" id="example-title"></h2>
+      <p class="panel-sub" id="example-desc"></p>
+
+      <div class="code-card">
+        <div class="code-card-header">
+          <span>🔒 read-only example</span>
+        </div>
+        <div id="example-editor" class="code-editor readonly"></div>
+      </div>
+
+      <button class="big-btn success" id="run-example-btn">▶️ Run this code!</button>
+
+      <div class="output-card" id="example-output-card" style="display:none;">
+        <div class="output-header">📺 Output</div>
+        <pre class="output-box" id="example-output"></pre>
+      </div>
+
+      <button class="big-btn primary" id="example-next-btn" style="display:none;">Your turn to practice! ✏️</button>
+    </section>
+
+    <!-- STEP 3: PRACTICE -->
+    <section class="step-panel" id="panel-practice" style="display:none;">
+      <h2 class="panel-title">✏️ Your Turn!</h2>
+      <p class="panel-sub" id="practice-task"></p>
+
+      <div class="code-card">
+        <div class="code-card-header">
+          <span>✏️ editable — make it your own!</span>
+          <button class="mini-btn" id="reset-practice-btn">↺ Reset</button>
+        </div>
+        <div id="practice-editor" class="code-editor"></div>
+      </div>
+
+      <div class="practice-actions">
+        <button class="big-btn success" id="run-practice-btn">▶️ Run my code!</button>
+        <button class="big-btn hint" id="hint-btn">💡 Hint</button>
+        <button class="big-btn hint" id="answer-btn">🙈 Show Answer</button>
+      </div>
+
+      <div class="output-card" id="practice-output-card" style="display:none;">
+        <div class="output-header">📺 Output</div>
+        <pre class="output-box" id="practice-output"></pre>
+      </div>
+
+      <div class="hint-card" id="hint-card" style="display:none;"></div>
+
+      <button class="big-btn celebrate" id="lesson-complete-btn" style="display:none;">🎉 Next Lesson! ➡️</button>
+    </section>
+
+  </div>
+</main>
+
+<!-- ===== PARENT DASHBOARD MODAL ===== -->
+<div id="parent-modal" class="modal-overlay" style="display:none;">
+  <div class="modal-card">
+    <button class="modal-close" id="parent-close">✖</button>
+    <h2>🧑‍🏫 Parent / Teacher Dashboard</h2>
+    <p class="modal-sub">See how your Py Pal is doing!</p>
+    <div id="parent-stats"></div>
+    <button class="big-btn hint" id="reset-progress-btn">Reset All Progress</button>
+  </div>
+</div>
+
+<!-- ===== CELEBRATION TOAST ===== -->
+<div id="celebrate-toast" class="celebrate-toast"></div>
+
+<!-- Pyodide runs inside a Web Worker (worker.js) — sandboxed, no DOM/network access, auto-killed if code hangs -->
+<script src="app.js"></script>
+</body>
+</html>
