@@ -116,6 +116,116 @@ const LESSONS = [
       successMsg: "You made Python repeat itself like magic!",
     },
   },
+  {
+    id: "lists",
+    icon: "🧺",
+    title: "Fun with Lists",
+    blurb: "Put lots of things in one box!",
+    learnText:
+      "A list holds many things together in order, like a backpack! Use square brackets <code>[ ]</code> and commas to make one, like <code>[\"apple\", \"banana\", \"cherry\"]</code>.",
+    visual: ["🧺", "🍎", "🍌", "🍒"],
+    example: {
+      title: "Toy Chest List",
+      desc: "We make a list of toys and print the whole list, then just one toy.",
+      code: `toys = ["robot", "kite", "yo-yo"]\nprint(toys)\nprint("My favorite toy is my", toys[0])`,
+    },
+    practice: {
+      task: "Add your own item to the list, then run it!",
+      starter: `snacks = ["apple", "cookie", "juice"]\nprint(snacks)\nprint("Yummy! I want some", snacks[1])`,
+      hint: 'Try adding a new snack inside the brackets, separated by a comma, like ["apple", "cookie", "juice", "chips"]!',
+      answer: `snacks = ["apple", "cookie", "juice", "chips"]\nprint(snacks)\nprint("Yummy! I want some", snacks[1])`,
+      validate: (out) => /yummy!/i.test(out) && out.includes("["),
+      successMsg: "You built your very own list!",
+    },
+  },
+  {
+    id: "strings",
+    icon: "🔤",
+    title: "Words & Strings",
+    blurb: "Play with words like puzzle pieces!",
+    learnText:
+      "Text in Python is called a <strong>string</strong>. You can glue strings together with <code>+</code>, or repeat them with <code>*</code>!",
+    visual: ["🔤", "➕", "🔤", "=", "🔤🔤"],
+    example: {
+      title: "Silly Word Machine",
+      desc: "We stick two words together, then repeat a word three times.",
+      code: `word1 = "Super"\nword2 = "Star"\nprint(word1 + word2)\nprint("Ha" * 3)`,
+    },
+    practice: {
+      task: "Change the words, then run it to make your own silly combo!",
+      starter: `word1 = "Cosmic"\nword2 = "Kid"\nprint(word1 + word2)\nprint("Wow" * 3)`,
+      hint: "Try changing word1 or word2 to any words you like — they'll stick together with no space!",
+      answer: `word1 = "Rocket"\nword2 = "Racer"\nprint(word1 + word2)\nprint("Zoom" * 3)`,
+      validate: (out) => out.trim().split("\n").length >= 2 && out.trim().length > 0,
+      successMsg: "You mashed up words like a pro!",
+    },
+  },
+  {
+    id: "booleans",
+    icon: "✅",
+    title: "True or False",
+    blurb: "Comparing things with Python!",
+    learnText:
+      "Python can compare things and answer <strong>True</strong> or <strong>False</strong>! Use <code>==</code> to check 'is it equal?', <code>&gt;</code> for bigger, and <code>&lt;</code> for smaller.",
+    visual: ["5", "❓", "3", "➡️", "✅"],
+    example: {
+      title: "Cookie Checker",
+      desc: "We compare cookie counts and print True or False answers.",
+      code: `my_cookies = 5\nyour_cookies = 3\nprint(my_cookies > your_cookies)\nprint(my_cookies == your_cookies)`,
+    },
+    practice: {
+      task: "Change the cookie numbers, then run it to see True or False change!",
+      starter: `my_cookies = 4\nyour_cookies = 4\nprint(my_cookies > your_cookies)\nprint(my_cookies == your_cookies)`,
+      hint: "Try making the numbers different, or the same, and watch True/False change!",
+      answer: `my_cookies = 10\nyour_cookies = 2\nprint(my_cookies > your_cookies)\nprint(my_cookies == your_cookies)`,
+      validate: (out) => /true|false/i.test(out),
+      successMsg: "You compared numbers like a Python detective!",
+    },
+  },
+  {
+    id: "while",
+    icon: "⏳",
+    title: "While Loops",
+    blurb: "Keep going until you're done!",
+    learnText:
+      "A <code>while</code> loop keeps repeating AS LONG AS something is true — like counting down until you reach zero!",
+    visual: ["⏳", "3️⃣", "2️⃣", "1️⃣", "🚀"],
+    example: {
+      title: "Rocket Countdown",
+      desc: "We count down from 3 until liftoff!",
+      code: `count = 3\nwhile count > 0:\n    print(count)\n    count = count - 1\nprint("Blast off! 🚀")`,
+    },
+    practice: {
+      task: "Change the starting number, then run it for a longer (or shorter) countdown!",
+      starter: `count = 5\nwhile count > 0:\n    print(count)\n    count = count - 1\nprint("Blast off! 🚀")`,
+      hint: "Try changing count = 5 to a bigger number, like 8, for a longer countdown!",
+      answer: `count = 8\nwhile count > 0:\n    print(count)\n    count = count - 1\nprint("Blast off! 🚀")`,
+      validate: (out) => /blast off/i.test(out),
+      successMsg: "You launched a countdown loop into space!",
+    },
+  },
+  {
+    id: "functions",
+    icon: "🛠️",
+    title: "Make Your Own Command",
+    blurb: "Build your own reusable Python trick!",
+    learnText:
+      "A function is like teaching Python a brand new trick! You write it once with <code>def</code>, then use it as many times as you want.",
+    visual: ["🛠️", "➡️", "📣", "📣", "📣"],
+    example: {
+      title: "Cheer Machine",
+      desc: "We teach Python a cheer, then use it twice.",
+      code: `def cheer(name):\n    print(name + ", you did it! 🎉")\n\ncheer("Maya")\ncheer("Sam")`,
+    },
+    practice: {
+      task: "Change the names being cheered for, then run it!",
+      starter: `def cheer(name):\n    print(name + ", you did it! 🎉")\n\ncheer("Explorer")\ncheer("Champion")`,
+      hint: 'Try changing the words inside the quotes in cheer("...") to any names you like!',
+      answer: `def cheer(name):\n    print(name + ", you did it! 🎉")\n\ncheer("Luna")\ncheer("Max")`,
+      validate: (out) => /you did it/i.test(out),
+      successMsg: "You built your own Python command!",
+    },
+  },
 ];
 
 const FRIENDLY_ERRORS = [
